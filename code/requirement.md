@@ -52,29 +52,99 @@
 
 請為跨平台實作。
 
-## AI發現不精確的地方
+## 預計向AI指出問題的回應(註：有些問題還沒答完)
 
-I'll (1) create a short todo plan and mark the first item in-progress, then (2) open requirement.md to read its contents and identify any ambiguous or underspecified requirements. Expected outcome: a list of items that need clearer definitions or decisions. I'll start now.
+(AI指出的問題，在檔案最下方)
 
-Created 3 todos
+首先，設計此程式的原因，是考試場域有網路問題，以此程式為替代方案。
 
-Read [](file:///d%3A/move/D/%E7%A0%94%E7%A9%B6%E6%89%80/local%20domjudge/requirement.md)
+以下是對您問題的回應：
 
-I'll update the todo statuses to mark `Read requirement.md` completed and set `Identify ambiguous requirements` to in-progress; outcome: task tracking reflects current work.
+角色與認證：
 
-Starting (2/3) *Identify ambiguous requirements*
+- 學生與教師。
+  
+- 教師身兼admin。
+  
+- 因為程式不可聯網，只要求教師登入，以避免學生接觸到非作答區域。
+  
 
-I'll mark `Identify ambiguous requirements` completed and set `Draft clarification questions` to in-progress so I can list precise questions next. Expected outcome: todo list reflects current step.
+package 格式：預設為zip。若有困難，可以自行設計格式。
 
-Starting (3/3) *Draft clarification questions*
+測資格式：
 
-Completed (3/3) *Draft clarification questions*
+- 每個輸入/輸出皆為獨立檔案。雖然是文字文件，為避免編碼問題，以binary儲存。
+  
+- 側資檔名範例：輸入`1.in`，期望輸出`1.out`。
+  
 
-## 我做了什麼（摘要）
+加密：
 
+- 加密方式：不限，至少不能在3小時內破解。
+  
+- 題目與公開密碼：不會留電磁紀錄。教師會在考試當下，以實體方式(例如白板)告知。
+  
+- 隱藏側資：只有教師可存取。只有在批改當下由機器解密，批改完畢則刪除解密後測資。
+  
+
+提交格式：
+
+- 限制單一檔案。考生可以選擇軟體支援語言。
+  
+
+執行環境：
+
+- 需求有更動，只要支援Unix-like即可。
+  
+- 不須容器化。(若要跨平台)可以對每個作業系統發布不同版本。只要source code有跨平台即可。
+  
+
+編譯腳本：
+
+- Q: 教師提供的腳本語言/格式需為何？如何避免執行風險？
+  
+
+判分細節：
+
+- 原則上全對才過，但必須列出每個測資各自是否通過。因此，除了compiler error之外，必須測試所有測資。
+  
+
+報表格式：
+
+- 介面顯示：須使學生容易閱讀。
+  
+- Q: 需要機器可讀（JSON）報表嗎？是否需匯出到 LMS？
+  
+
+Lex/Yacc 支援：
+
+- 需求有變動，需打包相關程式。
+  
+- Q: bison/flex 的版本要求？系統是否自動執行 bison/flex？
+  
+- C++用C++11或C++17。
+  
+
+儲存與保留：
+
+- Q: 是否需要執行隔離（sandbox）與攻擊面最小化（network 限制、syscalls 過濾）？
+  
+- Q: 是否需對教師提供的編譯腳本做簽章或審核流程？
+  
+- Q: 是否需要保留完整的操作紀錄（誰在何時打包/上傳/批改）？
+  
+
+併發/性能：
+
+- 本地運行，因此只會有一位學生同時使用。
+  
+
+安全要求：
+
+- Q: 需要哪些 sandbox/網路/系統呼叫限制？是否需要審計/操作紀錄？
+
+# AI發現不精確的地方
 我已閱讀 requirement.md 並檢視內容（目標：本地程式批改器），現在列出文件中「需要更精確或補充」的需求點、理由，以及每項對應的精確化問題或建議（方便你直接交給產品負責人或決策者回覆）。
-
----
 
 ## 需要更精確的需求項目（分類、理由與重點問題）
 
@@ -245,95 +315,6 @@ Completed (3/3) *Draft clarification questions*
 - `Draft clarification questions` — completed
 
 如果你要我把上述問題整理成郵件/問卷，或直接開始根據某些假設建立 prototype（例如：manifest 範例 + 打包/解密流程 + Docker-based grader），說明你偏好的預設（或哪幾項問題已確定），我就開始實作下一步。
-
-## 預計向AI的回應(註：有些問題還沒答完)
-
-首先，設計此程式的原因，是考試場域有網路問題，以此程式為替代方案。
-
-以下是對您問題的回應：
-
-角色與認證：
-
-- 學生與教師。
-  
-- 教師身兼admin。
-  
-- 因為程式不可聯網，只要求教師登入，以避免學生接觸到非作答區域。
-  
-
-package 格式：預設為zip。若有困難，可以自行設計格式。
-
-測資格式：
-
-- 每個輸入/輸出皆為獨立檔案。雖然是文字文件，為避免編碼問題，以binary儲存。
-  
-- 側資檔名範例：輸入`1.in`，期望輸出`1.out`。
-  
-
-加密：
-
-- 加密方式：不限，至少不能在3小時內破解。
-  
-- 題目與公開密碼：不會留電磁紀錄。教師會在考試當下，以實體方式(例如白板)告知。
-  
-- 隱藏側資：只有教師可存取。只有在批改當下由機器解密，批改完畢則刪除解密後測資。
-  
-
-提交格式：
-
-- 限制單一檔案。考生可以選擇軟體支援語言。
-  
-
-執行環境：
-
-- 需求有更動，只要支援Unix-like即可。
-  
-- 不須容器化。(若要跨平台)可以對每個作業系統發布不同版本。只要source code有跨平台即可。
-  
-
-編譯腳本：
-
-- Q: 教師提供的腳本語言/格式需為何？如何避免執行風險？
-  
-
-判分細節：
-
-- 原則上全對才過，但必須列出每個測資各自是否通過。因此，除了compiler error之外，必須測試所有測資。
-  
-
-報表格式：
-
-- 介面顯示：須使學生容易閱讀。
-  
-- Q: 需要機器可讀（JSON）報表嗎？是否需匯出到 LMS？
-  
-
-Lex/Yacc 支援：
-
-- 需求有變動，需打包相關程式。
-  
-- Q: bison/flex 的版本要求？系統是否自動執行 bison/flex？
-  
-- C++用C++11或C++17。
-  
-
-儲存與保留：
-
-- Q: 是否需要執行隔離（sandbox）與攻擊面最小化（network 限制、syscalls 過濾）？
-  
-- Q: 是否需對教師提供的編譯腳本做簽章或審核流程？
-  
-- Q: 是否需要保留完整的操作紀錄（誰在何時打包/上傳/批改）？
-  
-
-併發/性能：
-
-- 本地運行，因此只會有一位學生同時使用。
-  
-
-安全要求：
-
-- Q: 需要哪些 sandbox/網路/系統呼叫限制？是否需要審計/操作紀錄？
   
 
 UI 範圍：
