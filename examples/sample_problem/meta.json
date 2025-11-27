@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "problem_id": "sample-001",
+  "title": "Sample Problem",
+  "author": "Teacher",
+  "pack_timestamp": "2025-11-27T00:00:00Z",
+  "language": "cpp17",
+  "compile_command": "g++ -std=c++17 -O2 -pipe -o solution solution.cpp",
+  "run_command": "./solution",
+  "tests": [
+    { "id": "1", "public": true, "in": "public/1.in", "out": "public/1.out", "timeout_ms": 3000 },
+    { "id": "2", "public": false, "in": "private/2.in", "out": "private/2.out", "timeout_ms": 3000 }
+  ],
+  "defaults": { "timeout_ms": 3000 }
+}
